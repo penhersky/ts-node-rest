@@ -7,7 +7,7 @@
         "start": "node dist/cluster.ts",
         "cluster": "nodemon src/cluster.ts",
         "dev": "nodemon src/server.ts",
-        "test": "ts-mocha tests/*.test.ts",
+        "test": "ts-mocha test/*.test.ts",
         "build": "tsc -p ."
     },
     "dependencies": {

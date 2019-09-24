@@ -2,6 +2,8 @@ import bodyParser from 'body-parser';
 import morgan from 'morgan';
 import express from 'express';
 
+import { NotFoundError, ServerError } from './middleware/app.middleware';
+
 import auth from './routes/auth';
 
 const app: express.Application = express();
@@ -17,5 +19,8 @@ app.get('/', (req: express.Request, res: express.Response) => {
         ok: 'start',
     });
 });
+
+app.use(NotFoundError);
+app.use(ServerError);
 
 export default app;

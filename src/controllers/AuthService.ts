@@ -7,7 +7,7 @@ export const register = async (
     email: String,
     password: String,
 ): Promise<{ error: String | undefined; status: number }> => {
-    const validation: String = registerValidation({ login, email, password });
+    const validation: String | undefined = await registerValidation({ login, email, password });
 
     if (validation) return { error: validation, status: 400 };
 

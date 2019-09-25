@@ -8,17 +8,21 @@ import { registerValidation, authValidation } from '../src/controllers/validatio
 
 describe('#Validation validationAuth.ts', () => {
     it("Test validation register {login: 'User12', email: 'User@gmail.com', password: '123456'}", async () => {
-        (await registerValidation({
-            login: 'User12',
-            email: 'User@gmail.com',
-            password: '1223346',
-        })).should.equal(undefined);
+        _.isUndefined(
+            await registerValidation({
+                login: 'User12',
+                email: 'User@gmail.com',
+                password: '1223346',
+            }),
+        ).should.be.true;
     });
     it("Test validation register {login: 'User12', email: 'User@gmail.com', password: '123456'}", async () => {
-        (await registerValidation({
-            login: 'User12',
-            email: 'User@gmail.com',
-            password: '1',
-        })).should.not.equal(undefined);
+        _.isString(
+            await registerValidation({
+                login: 'User12',
+                email: 'User@gmail.com',
+                password: '1',
+            }),
+        ).should.be.true;
     });
 });

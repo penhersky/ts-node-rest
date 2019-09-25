@@ -1,6 +1,6 @@
 import Joi from '@hapi/joi';
 
-export const registerValidation: Function = async (data: {
+export const registerValidation = async (data: {
     login: String;
     email: String;
     password: String;
@@ -19,7 +19,7 @@ export const registerValidation: Function = async (data: {
     return result.error.details[0].message;
 };
 
-export const authValidation: Function = async (data: { email: String; password: String }): Promise<String> => {
+export const authValidation = async (data: { email: String; password: String }): Promise<String> => {
     const schema: Joi.SchemaLike = {
         email: Joi.string()
             .email()

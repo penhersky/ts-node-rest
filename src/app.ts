@@ -13,12 +13,7 @@ app.use(bodyParser.json());
 app.use(morgan('dev'));
 
 app.use('api/user', auth);
-
-app.get('/', (req: express.Request, res: express.Response) => {
-    res.status(200).json({
-        ok: 'start',
-    });
-});
+app.use('api/user', auth);
 
 app.use(NotFoundError);
 app.use(ServerError);

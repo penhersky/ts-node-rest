@@ -1,4 +1,4 @@
-import { SECRET } from './../config';
+import { SECRET } from '../../config';
 import jwt from 'jsonwebtoken';
 
 export const createToken = async (id: string, login: string, email: string): Promise<string> => {

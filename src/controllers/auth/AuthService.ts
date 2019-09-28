@@ -1,8 +1,8 @@
 import { registerValidation, authValidation } from './validationAuth';
-import { isDevelopment } from '../config';
+import { isDevelopment } from '../../config';
 import { hash, compare } from './userPassword';
 import { createToken } from './token';
-import Model from '../database/models/index';
+import Model from '../../database/models/index';
 
 export const register = async (
     login: String,

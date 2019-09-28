@@ -1,6 +1,6 @@
 import http from 'http';
 
-import { port, urlDB, isDevelopment } from './config';
+import { port, isDevelopment } from './config';
 import app from './app';
 import sequelize from './database/connectDB';
 
@@ -9,7 +9,7 @@ const server: http.Server = http.createServer(app);
 sequelize
     .authenticate()
     .then(() => {
-        console.log('Connect to ' + urlDB);
+        console.log('Connect to MySQL');
     })
     .catch(error => {
         if (isDevelopment) console.log(error);

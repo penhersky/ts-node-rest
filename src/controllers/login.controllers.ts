@@ -1,4 +1,4 @@
-import { authorization } from './AuthService';
+import { authorization } from './auth/AuthService';
 import { Request, Response } from 'express';
 
 export default async (req: Request, res: Response): Promise<void> => {

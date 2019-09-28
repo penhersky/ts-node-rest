@@ -12,8 +12,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(morgan('dev'));
 
-app.use('api/user', auth);
-app.use('api/user', auth);
+app.use('/api/user', auth);
 
 app.use(NotFoundError);
 app.use(ServerError);

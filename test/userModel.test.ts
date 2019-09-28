@@ -6,7 +6,7 @@ const should: Chai.Should = chai.should();
 
 import Model from '../src/database/models/index';
 
-describe.only('#User Model', () => {
+describe('#User Model', () => {
     it('Test Create user ({login: Jon, email: jon49@eamil.com, password: erathrsyjdkf, image: util/img/user1.pmg})', async () => {
         const newUser = await Model.User.create({
             login: 'Jon',

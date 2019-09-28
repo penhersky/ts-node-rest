@@ -4,7 +4,7 @@ import _ from 'lodash';
 
 const should: Chai.Should = chai.should();
 
-import { registerValidation, authValidation } from '../src/controllers/validationAuth';
+import { registerValidation, authValidation } from '../src/controllers/auth/validationAuth';
 
 describe('#Validation validationAuth.ts', () => {
     it("Test validation register {login: 'User12', email: 'User@gmail.com', password: '123456'}", async () => {

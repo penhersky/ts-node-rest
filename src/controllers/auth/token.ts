@@ -10,6 +10,7 @@ export const createToken = async (id: string, login: string, email: string): Pro
                 email,
             },
             String(SECRET),
+            { expiresIn: '7h' },
         );
         return token;
     } catch (error) {

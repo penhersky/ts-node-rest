@@ -25,4 +25,12 @@ describe('#Validation validationAuth.ts', () => {
             }),
         ).should.be.true;
     });
+    it("Test validation Login { email: 'User@gmail.com', password: '123456'}", async () => {
+        _.isString(
+            await authValidation({
+                email: 'User@gmail.com',
+                password: '1',
+            }),
+        ).should.be.true;
+    });
 });

@@ -5,7 +5,7 @@ export const registerValidation = async (data: {
     email: String;
     password: String;
 }): Promise<String | undefined> => {
-    const schema: Joi.SchemaLike = {
+    const schema: Joi.ObjectSchema = Joi.object({
         login: Joi.string()
             .min(3)
             .required(),
@@ -14,19 +14,21 @@ export const registerValidation = async (data: {
             .min(6)
             .required(),
         password: Joi.string().min(5),
-    };
-    const result: Joi.ValidationResult<{ login: String; email: String; password: String }> = Joi.validate(data, schema);
-    return result.error.details[0].message;
+    });
+    const result: Joi.ValidationResult<{ login: String; email: String; password: String }> = schema.validate(data);
+    if (result.error) return result.error.details[0].message;
+    return undefined;
 };
 
-export const authValidation = async (data: { email: String; password: String }): Promise<String> => {
-    const schema: Joi.SchemaLike = {
+export const authValidation = async (data: { email: String; password: String }): Promise<String | undefined> => {
+    const schema: Joi.ObjectSchema = Joi.object({
         email: Joi.string()
             .email()
             .min(6)
             .required(),
         password: Joi.string().min(5),
-    };
-    const result: Joi.ValidationResult<{ email: String; password: String }> = Joi.validate(data, schema);
-    return result.error.details[0].message;
+    });
+    const result: Joi.ValidationResult<{ email: String; password: String }> = schema.validate(data);
+    if (result.error) return result.error.details[0].message;
+    return undefined;
 };

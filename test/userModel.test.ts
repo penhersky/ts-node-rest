@@ -7,10 +7,20 @@ const should: Chai.Should = chai.should();
 import Model from '../src/database/models/index';
 
 describe('#User Model', () => {
+    it.skip('Test Create user model', async () => {
+        Model.User.sync({ force: true }).then(() => {
+            Model.User.create({
+                login: 'Jon',
+                email: 'jon59@gmail.com',
+                password: 'erathrsyjdkf',
+                image: 'util/img/user1.pmg',
+            });
+        });
+    });
     it('Test Create user ({login: Jon, email: jon49@eamil.com, password: erathrsyjdkf, image: util/img/user1.pmg})', async () => {
         const newUser = await Model.User.create({
             login: 'Jon',
-            email: 'jon49@eamil.com',
+            email: 'jon49@gmail.com',
             password: 'erathrsyjdkf',
             image: 'util/img/user1.pmg',
         });

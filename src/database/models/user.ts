@@ -12,7 +12,12 @@ class User extends Sequelize.Model {
     public readonly createdAt!: Date;
 }
 
-User.init(
+type MyModelStatic = typeof Sequelize.Model & {
+    new (values?: object, options?: Sequelize.BuildOptions): User;
+};
+
+const UserModel = <MyModelStatic>sequelize.define(
+    'User',
     {
         id: {
             type: Sequelize.DataTypes.INTEGER.UNSIGNED,
@@ -36,7 +41,9 @@ User.init(
             allowNull: false,
         },
     },
-    { sequelize, tableName: 'User' },
+    {
+        freezeTableName: true,
+    },
 );
 
-export default User;
+export default UserModel;

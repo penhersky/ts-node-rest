@@ -37,7 +37,7 @@ const UserModel = <MyModelStatic>sequelize.define(
             allowNull: false,
         },
         password: {
-            type: new Sequelize.DataTypes.STRING(28),
+            type: new Sequelize.DataTypes.STRING(200),
             allowNull: false,
         },
     },

@@ -9,7 +9,10 @@ export default async (req: Request, res: Response): Promise<void> => {
             req.body.password,
         );
 
-        if (result.error) res.status(result.status).json({ error: result.error });
+        if (result.error) {
+            res.status(result.status).json({ error: result.error });
+            return;
+        }
         res.status(result.status).json({ message: 'Authorization was successful!', token: result.token });
     } catch (error) {
         if (isDevelopment) console.log(error);

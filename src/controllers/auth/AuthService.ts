@@ -1,5 +1,5 @@
 import { registerValidation, authValidation } from './validationAuth';
-import { isDevelopment } from '../../config';
+import { isDevelopment, USER_IMAGE } from '../../config';
 import { hash, compare } from './userPassword';
 import { createToken } from './token';
 import Model from '../../database/models/index';
@@ -14,14 +14,14 @@ export const register = async (
 
         if (validation) return { error: validation, status: 400 };
 
-        const UserEmail = await Model.User.findAll({ where: { email: String(email) } });
-        const UserLogin = await Model.User.findAll({ where: { email: String(email) } });
+        const UserEmail = await Model.User.findOne({ where: { email: String(email) } });
+        const UserLogin = await Model.User.findOne({ where: { login: String(login) } });
 
         if (UserEmail || UserLogin) return { status: 409, error: 'A user with this login or email exists' };
 
         const hasPassword: string = await hash(password.toString());
 
-        await Model.User.create({ login, email, password: hasPassword });
+        await Model.User.create({ login, email, password: hasPassword, image: String(USER_IMAGE) });
 
         return { status: 201, error: undefined };
     } catch (error) {
@@ -39,10 +39,10 @@ export const authorization = async (
         if (validation) return { error: validation, status: 400, token: undefined };
 
         const UserEmail = await Model.User.findOne({ where: { email: String(email) } });
-        if (!UserEmail) return { status: 409, error: 'User is not fount!', token: undefined };
+        if (!UserEmail) return { status: 401, error: 'User is not fount!', token: undefined };
 
         const validationPassword: boolean = await compare(password.toString(), UserEmail.password);
-        if (!validationPassword) return { status: 409, error: 'Invalid password!', token: undefined };
+        if (!validationPassword) return { status: 401, error: 'Invalid password!', token: undefined };
 
         const token = await createToken(UserEmail.id.toString(), UserEmail.login, UserEmail.email);
 

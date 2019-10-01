@@ -13,6 +13,7 @@ describe('#User Model', () => {
                 login: 'Jon',
                 email: 'jon59@gmail.com',
                 password: 'erathrsyjdkf',
+                last_seen: Date.now(),
                 image: 'util/img/user1.pmg',
             });
         });
@@ -23,7 +24,9 @@ describe('#User Model', () => {
             email: 'jon49@gmail.com',
             password: 'erathrsyjdkf',
             image: 'util/img/user1.pmg',
+            last_seen: Date.now(),
         });
         _.isNull(await Model.User.findByPk(newUser.id)).should.not.be.true;
+        await Model.User.destroy({ where: { id: newUser.id } });
     });
 });

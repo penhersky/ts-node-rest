@@ -40,6 +40,10 @@ const UserModel = <MyModelStatic>sequelize.define(
             type: new Sequelize.DataTypes.STRING(200),
             allowNull: false,
         },
+        last_seen: {
+            type: new Sequelize.DataTypes.STRING(32),
+            allowNull: false,
+        },
     },
     {
         freezeTableName: true,

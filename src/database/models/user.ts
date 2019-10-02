@@ -2,12 +2,13 @@ import Sequelize from 'sequelize';
 
 import sequelize from '../connectDB';
 
-class User extends Sequelize.Model {
+export class User extends Sequelize.Model {
     public id!: number;
     public login!: string;
     public email!: string;
     public image!: string;
     public password!: string;
+    public last_seen!: string;
 
     public readonly createdAt!: Date;
 }

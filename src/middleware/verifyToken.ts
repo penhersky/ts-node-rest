@@ -4,7 +4,7 @@ import { SECRET, isDevelopment } from '../config';
 
 function auth(req: Request, res: Response, next: NextFunction) {
     const token: string | undefined = req.header('auth-token');
-    if (!token) res.status(401).send('Access Denied!');
+    if (!token) res.status(401).json({ error: 'Access Denied!' });
     try {
         const verified = <any>jwt.verify(String(token), String(SECRET));
         res.locals.user = {
@@ -16,6 +16,7 @@ function auth(req: Request, res: Response, next: NextFunction) {
     } catch (error) {
         if (isDevelopment) console.error(error);
         res.status(401).json({ error: 'Invalid Token!' });
+        next();
     }
 }
 

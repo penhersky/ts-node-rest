@@ -21,7 +21,13 @@ export const register = async (
 
         const hasPassword: string = await hash(password.toString());
 
-        await Model.User.create({ login, email, password: hasPassword, image: String(USER_IMAGE) });
+        await Model.User.create({
+            login,
+            email,
+            password: hasPassword,
+            image: String(USER_IMAGE),
+            last_seen: Date.now(),
+        });
 
         return { status: 201, error: undefined };
     } catch (error) {

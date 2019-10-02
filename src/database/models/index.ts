@@ -1,9 +1,11 @@
-import User from './user';
-import Dialog from './dialog';
-import Message from './message';
+import UserModel, { User } from './user';
+import DialogModel, { Dialog } from './dialog';
+import MessageModel, { Message } from './message';
 
 export default {
-    User,
-    Dialog,
-    Message,
+    User: UserModel,
+
+    Dialog: DialogModel,
+
+    Message: MessageModel,
 };

@@ -2,7 +2,7 @@ import Sequelize from 'sequelize';
 
 import sequelize from '../connectDB';
 
-class Message extends Sequelize.Model {
+export class Message extends Sequelize.Model {
     public id!: number;
     public author!: string;
     public partner!: string;

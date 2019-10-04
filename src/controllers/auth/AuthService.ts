@@ -10,16 +10,16 @@ export const register = async (
     password: String,
 ): Promise<{ error: String | undefined; status: number }> => {
     try {
-        const validation: String | undefined = await registerValidation({ login, email, password });
+        const validationError = await registerValidation({ login, email, password });
 
-        if (validation) return { error: validation, status: 400 };
+        if (validationError) return { error: validationError, status: 400 };
 
         const UserEmail = await Model.User.findOne({ where: { email: String(email) } });
         const UserLogin = await Model.User.findOne({ where: { login: String(login) } });
 
         if (UserEmail || UserLogin) return { status: 409, error: 'A user with this login or email exists' };
 
-        const hasPassword: string = await hash(password.toString());
+        const hasPassword = await hash(password.toString());
 
         await Model.User.create({
             login,
@@ -41,13 +41,13 @@ export const authorization = async (
     password: String,
 ): Promise<{ error: String | undefined; token: string | undefined; status: number }> => {
     try {
-        const validation: String | undefined = await authValidation({ email, password });
-        if (validation) return { error: validation, status: 400, token: undefined };
+        const validationError = await authValidation({ email, password });
+        if (validationError) return { error: validationError, status: 400, token: undefined };
 
         const UserEmail = await Model.User.findOne({ where: { email: String(email) } });
         if (!UserEmail) return { status: 401, error: 'User is not fount!', token: undefined };
 
-        const validationPassword: boolean = await compare(password.toString(), UserEmail.password);
+        const validationPassword = await compare(password.toString(), UserEmail.password);
         if (!validationPassword) return { status: 401, error: 'Invalid password!', token: undefined };
 
         const token = await createToken(UserEmail.id.toString(), UserEmail.login, UserEmail.email);

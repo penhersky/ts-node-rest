@@ -4,9 +4,8 @@ import Model from '../../database/models/index';
 import { isDevelopment } from '../../config';
 
 export default async (req: Request, res: Response): Promise<void> => {
-    const partner: string = req.params.userId;
-    const author: string = res.locals.user.id;
-
+    const partner = req.params.partnerId;
+    const author = res.locals.user.id;
     try {
         const allPartnerData = await Model.User.findOne({ where: { id: partner } });
         if (!allPartnerData) {
@@ -15,18 +14,30 @@ export default async (req: Request, res: Response): Promise<void> => {
             });
             return;
         }
-
-        const newDialog = await Model.Dialog.create({
-            partner,
-            author,
-        });
-
+        const oldDialog = await (<any>Model.Dialog.findOne({ where: { partner, author } }));
+        if (!oldDialog) {
+            const newDialog = await Model.Dialog.create({
+                partner,
+                author,
+            });
+            res.status(201).json({
+                dialog: {
+                    id: newDialog.id,
+                    name: allPartnerData.login,
+                    image: allPartnerData.image,
+                    lastOnline: allPartnerData.last_seen,
+                    createAt: newDialog.createdAt,
+                },
+            });
+            return;
+        }
         res.status(201).json({
             dialog: {
-                id: newDialog.id,
+                id: oldDialog.id,
                 name: allPartnerData.login,
                 image: allPartnerData.image,
                 lastOnline: allPartnerData.last_seen,
+                createAt: oldDialog.createdAt,
             },
         });
     } catch (error) {

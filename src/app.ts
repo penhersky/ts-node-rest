@@ -14,7 +14,7 @@ app.use(bodyParser.json());
 app.use(morgan('dev'));
 
 app.use('/api/user', auth);
-app.use('/dialog', dialog);
+app.use('/', dialog);
 
 app.use(NotFoundError);
 app.use(ServerError);

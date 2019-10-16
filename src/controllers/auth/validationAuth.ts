@@ -8,6 +8,7 @@ export const registerValidation = async (data: {
     const schema: Joi.ObjectSchema = Joi.object({
         login: Joi.string()
             .min(3)
+            .max(26)
             .required(),
         email: Joi.string()
             .email()

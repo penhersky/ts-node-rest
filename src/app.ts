@@ -6,6 +6,7 @@ import { NotFoundError, ServerError } from './middleware/app.middleware';
 
 import auth from './routes/auth';
 import dialog from './routes/dialog';
+import user from './routes/user';
 
 const app: express.Application = express();
 
@@ -15,6 +16,7 @@ app.use(morgan('dev'));
 
 app.use('/api/user', auth);
 app.use('/', dialog);
+app.use('/user', user);
 
 app.use(NotFoundError);
 app.use(ServerError);

@@ -4,6 +4,7 @@ import { isDevelopment } from '../config';
 
 export default async (req: Request, res: Response): Promise<void> => {
     try {
+        console.log(req.body);
         const result: { error: String | undefined; status: number } = await register(
             req.body.login,
             req.body.email,

@@ -2,7 +2,7 @@ import multer from 'multer';
 
 const storage: multer.StorageEngine = multer.diskStorage({
     destination: function(req: Express.Request, file: Express.Multer.File, cb: Function): void {
-        cb(null, './Upload/');
+        cb(null, '../uploads/');
     },
     filename: function(req: Express.Request, file: Express.Multer.File, cb: Function): void {
         cb(null, Date() + file.originalname);

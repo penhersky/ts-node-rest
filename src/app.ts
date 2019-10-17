@@ -12,6 +12,7 @@ const app: express.Application = express();
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(express.static('uploads'));
 app.use(morgan('dev'));
 
 app.use('/api/user', auth);

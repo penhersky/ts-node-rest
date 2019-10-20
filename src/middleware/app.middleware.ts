@@ -23,3 +23,13 @@ export const ServerError = (error: HttpException, req: Request, res: Response, n
         },
     });
 };
+
+export const AccessControlAllowOrigin = (req: Request, res: Response, next: NextFunction) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Context-Type, Access, Authorization');
+    if (req.method === 'OPTIONS') {
+        res.header('Access-Control-Allow-Method', 'PUT, POST, PATH, DELETE, GET');
+        return res.status(200).json({});
+    }
+    next();
+};

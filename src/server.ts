@@ -3,6 +3,7 @@ import http from 'http';
 import { port, isDevelopment } from './config';
 import app from './app';
 import sequelize from './database/connectDB';
+import { includeIo, listen } from './sockets';
 
 const server: http.Server = http.createServer(app);
 
@@ -15,6 +16,10 @@ sequelize
         if (isDevelopment) console.log(error);
         console.log('Unable to connect to the database');
     });
+
+//socket
+
+listen(includeIo(server));
 
 server.listen(port, () => console.log(`🚀 Server ready at http://localhost:${port}  Pid: ${process.pid}   `));
 process.on('SIGINT', () => {

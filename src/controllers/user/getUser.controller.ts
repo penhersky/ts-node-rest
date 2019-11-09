@@ -5,7 +5,6 @@ import { isDevelopment } from '../../config';
 export default async (req: Request, res: Response): Promise<void> => {
     try {
         const login = req.params.login;
-        console.log(login);
         const user = await Model.User.findOne({ where: { login } });
         if (user === null) {
             res.status(404).json({ error: 'User is not found!' });
@@ -15,6 +14,7 @@ export default async (req: Request, res: Response): Promise<void> => {
         res.status(200).json({
             id: user.id,
             login: user.login,
+            email: user.email,
             image: user.image,
             last_online: user.last_seen,
             createAt: user.createdAt,

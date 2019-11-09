@@ -26,7 +26,7 @@ export const register = async (
             email,
             password: hasPassword,
             image: String(USER_IMAGE),
-            last_seen: Date.now(),
+            last_seen: Date(),
         });
 
         return { status: 201, error: undefined };
@@ -39,22 +39,31 @@ export const register = async (
 export const authorization = async (
     email: String,
     password: String,
-): Promise<{ error: String | undefined; token: string | undefined; status: number }> => {
+): Promise<{
+    error: String | undefined;
+    token: string | undefined;
+    status: number;
+    id: number | undefined;
+    login: string | undefined;
+}> => {
     try {
         const validationError = await authValidation({ email, password });
-        if (validationError) return { error: validationError, status: 400, token: undefined };
+        if (validationError)
+            return { error: validationError, status: 400, token: undefined, id: undefined, login: undefined };
 
         const UserEmail = await Model.User.findOne({ where: { email: String(email) } });
-        if (!UserEmail) return { status: 401, error: 'User is not fount!', token: undefined };
+        if (!UserEmail)
+            return { status: 401, error: 'User is not fount!', token: undefined, id: undefined, login: undefined };
 
         const validationPassword = await compare(password.toString(), UserEmail.password);
-        if (!validationPassword) return { status: 401, error: 'Invalid password!', token: undefined };
+        if (!validationPassword)
+            return { status: 401, error: 'Invalid "password"!', token: undefined, id: undefined, login: undefined };
 
         const token = await createToken(UserEmail.id.toString(), UserEmail.login, UserEmail.email);
 
-        return { status: 200, error: undefined, token };
+        return { status: 200, error: undefined, token, id: UserEmail.id, login: UserEmail.login };
     } catch (error) {
         if (isDevelopment) console.log(error);
-        return { status: 500, error: 'Server Error!', token: undefined };
+        return { status: 500, error: 'Server Error!', token: undefined, id: undefined, login: undefined };
     }
 };

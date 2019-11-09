@@ -26,9 +26,12 @@ export const ServerError = (error: HttpException, req: Request, res: Response, n
 
 export const AccessControlAllowOrigin = (req: Request, res: Response, next: NextFunction) => {
     res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Context-Type, Access, Authorization');
+    res.header(
+        'Access-Control-Allow-Headers',
+        'Origin, X-Requested-With, Content-Type, auth-token, Accept, Authorization',
+    );
     if (req.method === 'OPTIONS') {
-        res.header('Access-Control-Allow-Method', 'PUT, POST, PATH, DELETE, GET');
+        res.header('Access-Control-Allow-Methods', 'PUT, POST, PATH, DELETE, GET, HEAD');
         return res.status(200).json({});
     }
     next();

@@ -10,10 +10,10 @@ import user from './routes/user';
 
 const app: express.Application = express();
 
-app.use(AccessControlAllowOrigin);
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(express.static('uploads'));
+app.use(AccessControlAllowOrigin);
+app.use('/upload', express.static('upload'));
 
 app.use(morgan('dev'));
 

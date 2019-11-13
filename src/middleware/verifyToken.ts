@@ -20,7 +20,6 @@ function auth(req: Request, res: Response, next: NextFunction) {
     } catch (error) {
         if (isDevelopment) console.error(error);
         res.status(401).json({ error: 'Invalid Token!' });
-        next();
     }
 }
 

@@ -1,11 +1,16 @@
 import multer from 'multer';
+import { mkdirSync } from 'fs';
+import { DESTINATION } from '../config';
 
 const storage: multer.StorageEngine = multer.diskStorage({
     destination: function(req: Express.Request, file: Express.Multer.File, cb: Function): void {
-        cb(null, '../uploads/');
+        const date = Date.now();
+        const dir = DESTINATION + '\\' + date;
+        mkdirSync(dir);
+        cb(null, `./src/upload/${date}/`);
     },
     filename: function(req: Express.Request, file: Express.Multer.File, cb: Function): void {
-        cb(null, Date() + file.originalname);
+        cb(null, file.originalname);
     },
 });
 

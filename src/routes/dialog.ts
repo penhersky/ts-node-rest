@@ -10,6 +10,6 @@ const router: Router = express.Router();
 router.post('/dialog/:partnerId', verifyToken, addDialog);
 router.delete('/dialog/:dialogId', verifyToken, deleteDelete);
 router.get('/dialog/:dialogId', verifyToken, getDialog);
-router.get('/' /*, verifyToken*/, allDialog);
+router.get('/', verifyToken, allDialog);
 
 export default router;

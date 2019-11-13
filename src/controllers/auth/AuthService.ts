@@ -26,7 +26,7 @@ export const register = async (
             email,
             password: hasPassword,
             image: String(USER_IMAGE),
-            last_seen: Date(),
+            last_seen: new Date().getTime(),
         });
 
         return { status: 201, error: undefined };

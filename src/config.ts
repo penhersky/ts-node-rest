@@ -13,3 +13,4 @@ export const port: number | undefined = Number(process.env.PORT);
 export const SALT: number | undefined = Number(process.env.SALT);
 export const SECRET: string | undefined = process.env.SECRET;
 export const USER_IMAGE: string | undefined = process.env.USER_IMAGE;
+export const DESTINATION: string | undefined = process.env.DESTINATION;

@@ -10,7 +10,6 @@ export default async (req: Request, res: Response): Promise<void> => {
             res.status(404).json({ error: 'User is not found!' });
             return;
         }
-
         res.status(200).json({
             id: user.id,
             login: user.login,
